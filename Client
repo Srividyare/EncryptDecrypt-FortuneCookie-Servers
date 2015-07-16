@@ -41,7 +41,14 @@ public class Client
          System.out.println(":" + in.readUTF());
          }
          if (input.contains("encrypt")) {
-           System.out.println("Sorry, not implemented here");
+           System.out.println("Please enter the string preceeded by e for encryption and d for decryption");
+          String inputToServer = s.nextLine();
+         
+         
+
+         out.writeUTF(inputToServer);
+         
+         System.out.println(":" + in.readUTF());
          }
          } 
          
