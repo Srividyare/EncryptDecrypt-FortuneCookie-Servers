@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.io.*;
 
+
 public class FortuneCookieServer extends Thread
 {
   // server socket on where the server will be serving
@@ -30,6 +31,7 @@ public class FortuneCookieServer extends Thread
     while(true)
     { 
       Socket server = null;
+      
       try
       {
         System.out.println("Waiting for client on port " +
@@ -96,7 +98,37 @@ public class FortuneCookieServer extends Thread
 
   public static void main(String [] args)
   {
+  
+    String serverName = args[0];
+    Socket server = null;
+    // int port = Integer.parseInt(args[0]);
+    try
+      {
+        System.out.println("Connecting to " + serverName
+              + " on port " + 9996);
+          client = new Socket(serverName, 9996);
+          System.out.println("Just connected to "
+              + client.getRemoteSocketAddress());
+          OutputStream outToServer = server.getOutputStream();
+          DataOutputStream out =
+              new DataOutputStream(outToServer);
+          InputStream inFromServer = server.getInputStream();
+          DataInputStream in =
+              new DataInputStream(inFromServer);
+          
+          String inputToServer = InetAddress.getAllByName("host.name");
 
+          if (inputToServer.equalsIgnoreCase("close")) {
+            client.close();
+            System.exit(0);
+          } else {
+         
+          out.writeUTF(inputToServer);
+
+          System.out.println(":" + in.readUTF());
+          client.close();
+          }
+        
     try
     { 
       // create a thread that will accept the connections and process
